@@ -1,0 +1,37 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "Image": {
+    "Name": "123456789876.dkr.ecr.us-east-2.amazonaws.com/my-test-app",
+    "Update": "true"
+  },
+  "Ports": [{ "ContainerPort": 8080 }],
+  "volumes": [
+    {
+      "name": "my-test-app-volume",
+      "host": {
+        "sourcePath": "~/app"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "my-test-app-container",
+      "image": "my-test-app:latest",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "my-test-app-volume",
+          "containerPath": "~/app",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}
